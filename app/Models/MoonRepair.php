@@ -27,6 +27,8 @@ class MoonRepair extends Model
         'customerEmail',
         'customerPhoneNumber',
         'price',
-        'accessories'
+        'accessories',
+        'privateNumber',
+        'company',
     ];
 }

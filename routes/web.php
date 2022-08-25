@@ -34,6 +34,8 @@ Route::get('/home', [HomeController::class, 'index']);
 
 
 Route::get('/newDevice', [DeviceController::class, 'newDevice']);
+Route::get('/RMA', [DeviceController::class, 'RMA']);
+Route::get('/returnDevice/{id}', [DeviceController::class, 'returnDevice']);
 Route::post('/storeDevice', [DeviceController::class, 'store']);
 
 Route::get('/device/{id}', [DeviceController::class, 'show']);

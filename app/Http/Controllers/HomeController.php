@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Device;
@@ -41,7 +42,17 @@ class HomeController extends Controller
         $comments = Comment::orderBy("id", "DESC")->get();
 
         if($AccountType == 'partner'){
-            return view('Partner.home', ["partner" => $loggedInName, "activeDevices" => $activeDevices, "closedDevices" => $closedDevices, "sentDevices" => $sentDevices]);
+
+            $company = Auth::user()->firmName;
+
+            $devices = Device::where("business", $userId)->orderBy("id", "DESC")->take(6)->get();
+
+            $devicesCount = Device::where("business", $userId)->count();
+            $activeDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "!=", "finished")->count();
+            $closedDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "=", "finished")->count();
+
+            return view('Partner.index', ["partner" => $loggedInName, "companyName" => $company, "devicesCount" => $devicesCount, "activeDevices" => $activeDevices, "closedDevices" => $closedDevices, "devices" => $devices]);
+//            return view('Partner.home', ["partner" => $loggedInName, "activeDevices" => $activeDevices, "closedDevices" => $closedDevices, "sentDevices" => $sentDevices]);
         }elseif($AccountType == 'admin'){
             $admin = Auth::user();
             $partnersNumber = User::where("AccountType", "partner")->count();
@@ -55,6 +66,7 @@ class HomeController extends Controller
             $b2bDevicesOverView = Device::orderBy("id", "DESC")->take(5)->get();
             $b2cDevicesOverView = MoonRepair::orderBy("id", "DESC")->take(5)->get();
             $b2bDeviceCompany = Device::orderBy("id", "DESC")->take(5)->pluck("business")->all();
+            $pendingB2cDevicesToday = MoonRepair::where("status", "!=", "finished")->whereDate('created_at', Carbon::today())->count();
 
             $toDoList = Task::orderBy("id", "DESC")->get();
 
@@ -80,7 +92,8 @@ class HomeController extends Controller
                 "allB2cDevices" => $allB2cDevices,
                 "notificationsNumber" => $notificationsNumber,
                 "notifications" => $notifications,
-                "tasks" => $toDoList
+                "tasks" => $toDoList,
+                "pendingB2cDevicesToday" => $pendingB2cDevicesToday,
                 ]);
         }elseif($AccountType == 'tech'){
 

@@ -31,9 +31,9 @@ class MoonRepairController extends Controller
         $device = MoonRepair::find($id);
         $accountType = Auth::user()->AccountType;
         $comments = MoonRepairComment::where("deviceID", $id)->orderBy("id", "DESC")->get();
-  
+
         $loggedInName = Auth::user()->name;
-        
+
         return view("moonRepair.device", [
             "device" => $device,
             "AccountType" => $accountType,
@@ -43,7 +43,7 @@ class MoonRepairController extends Controller
     }
 
     public function pdfShow($id){
-        
+
         $moonRepair = Auth::user()->name;
         $device = MoonRepair::find($id);
         return view("moonRepair.pdf", [
@@ -60,11 +60,11 @@ class MoonRepairController extends Controller
             "brands" => $brands,
         ]);
     }
-    
+
     public function store(Request $request)
     {
         $createDevice = MoonRepair::create($request->all());
-        
+
         if($createDevice){
             return redirect('home');
         }
@@ -73,8 +73,8 @@ class MoonRepairController extends Controller
     public function updateDevice(Request $request, $id)
     {
         $device = Moonrepair::find($id);
-        $device->update($request->all());     
-        $loggedInName = Auth::user()->name;  
+        $device->update($request->all());
+        $loggedInName = Auth::user()->name;
         return Redirect::back();
     }
 
@@ -86,6 +86,6 @@ class MoonRepairController extends Controller
     public function openDevice($id){
         $device = MoonRepair::where("id", $id)->update(['status' => "open"]);
         return Redirect::back();
-}   
-    
+}
+
 }

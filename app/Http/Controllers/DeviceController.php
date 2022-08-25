@@ -26,9 +26,22 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function RMA()
     {
-        //
+        $company = Auth::user()->firmName;
+        $loggedInName = Auth::user()->name;
+        $userId = Auth::user()->id;
+
+        $devices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "finished")->get();
+
+        $devicesCount = Device::where("business", $userId)->count();
+        $activeDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "!=", "finished")->count();
+        $closedDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "=", "finished")->count();
+
+
+        $brands = DB::table('brands')->orderBy('brandName', 'ASC')->get();
+        return view('Partner.rma', ["partner" => $loggedInName, "companyName" => $company, "devicesCount" => $devicesCount, "activeDevices" => $activeDevices, "closedDevices" => $closedDevices, "devices" => $devices, "brands" => $brands]);
+
     }
 
     public function neededPart(Request $request){
@@ -54,11 +67,38 @@ class DeviceController extends Controller
 
 
     public function newDevice(){
-        $AccountType = Auth::user()->AccountType;
-        $userId = Auth::user()->id;
+        $company = Auth::user()->firmName;
         $loggedInName = Auth::user()->name;
+        $userId = Auth::user()->id;
+
+        $devices = Device::where("business", $userId)->orderBy("id", "DESC")->take(6)->get();
+
+        $devicesCount = Device::where("business", $userId)->count();
+        $activeDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "!=", "finished")->count();
+        $closedDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "=", "finished")->count();
+
+
         $brands = DB::table('brands')->orderBy('brandName', 'ASC')->get();
-        return view("Partner.newDevice", ["partner" => $loggedInName, "brands" => $brands]);
+        return view('Partner.newDevice', ["partner" => $loggedInName, "companyName" => $company, "devicesCount" => $devicesCount, "activeDevices" => $activeDevices, "closedDevices" => $closedDevices, "devices" => $devices, "brands" => $brands]);
+
+//        return view("Partner.newDevice", ["partner" => $loggedInName, "brands" => $brands]);
+    }
+    public function returnDevice($id){
+        $company = Auth::user()->firmName;
+        $loggedInName = Auth::user()->name;
+        $userId = Auth::user()->id;
+
+        $devices = Device::find($id);
+
+        $devicesCount = Device::where("business", $userId)->count();
+        $activeDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "!=", "finished")->count();
+        $closedDevices = Device::where("business", $userId)->orderBy("id", "DESC")->where("status", "=", "finished")->count();
+
+
+        $brands = DB::table('brands')->orderBy('brandName', 'ASC')->get();
+        return view('Partner.returnDevice', ["partner" => $loggedInName, "companyName" => $company, "devicesCount" => $devicesCount, "activeDevices" => $activeDevices, "closedDevices" => $closedDevices, "devices" => $devices, "brands" => $brands]);
+
+//        return view("Partner.newDevice", ["partner" => $loggedInName, "brands" => $brands]);
     }
 
 

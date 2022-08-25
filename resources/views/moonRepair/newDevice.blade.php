@@ -15,11 +15,11 @@
         </div>
         <h1 class="text-uppercase">MoonRepair Portal</h1>
     </div>
-    
+
 
 </div>
 
-    
+
 <div class="container mt-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-light my-4">
             <a class="navbar-brand">
@@ -75,19 +75,45 @@
                     @enderror
                 </div>
             </div>
-            <div class="form-group row my-2">
-                <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Telefonnummer des Kunden') }}</label>
+                    <div class="form-group row my-2">
+                        <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Telefonnummer des Kunden') }}</label>
 
-                <div class="col-md-6">
-                    <input placeholder="phone" id="phone" type="text" class="text-center form-control @error('model') is-invalid @enderror" name="customerPhoneNumber" value="{{ old('customerPhoneNumber') }}" required autocomplete="model" autofocus>
+                        <div class="col-md-6">
+                            <input placeholder="phone" id="phone" type="text" class="text-center form-control @error('model') is-invalid @enderror" name="customerPhoneNumber" value="{{ old('customerPhoneNumber') }}" required autocomplete="model" autofocus>
 
-                    @error('model')
-                    <span class="invalid-feedback" role="alert">
+                            @error('model')
+                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                    @enderror
-                </div>
-            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row my-2">
+                        <label for="privatePhone" class="col-md-4 col-form-label text-md-right">{{ __('Privatnummer des Kunden') }}</label>
+
+                        <div class="col-md-6">
+                            <input placeholder="Private Phone" id="privatePhone" type="text" class="text-center form-control @error('model') is-invalid @enderror" name="privateNumber" value="{{ old('privateNumber') }}" required autocomplete="model" autofocus>
+
+                            @error('privateNumber')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row my-2">
+                        <label for="company" class="col-md-4 col-form-label text-md-right">{{ __('Firm des Kunden') }}</label>
+
+                        <div class="col-md-6">
+                            <input placeholder="Firm des Kunden" id="company" type="text" class="text-center form-control @error('company') is-invalid @enderror" name="company" value="{{ old('company') }}" required autocomplete="company" autofocus>
+
+                            @error('company')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
             <div class="form-group row my-2">
                 <label for="zip" class="col-md-4 col-form-label text-md-right">{{ __('ZIP') }}</label>
 
@@ -133,13 +159,13 @@
                 <div class="col-md-6">
 
                     <select id="brand" name="brand" class="form-control form-select text-center">
-                    
+
                         @foreach ($brands as $brand)
 
                             <option value="{{$brand->brandName}}">{{$brand->brandName}}</option>
 
                         @endforeach
-                    
+
                     </select>
 
                     @error('model')
@@ -176,7 +202,7 @@
                     @enderror
                 </div>
             </div>
-        
+
 
             <div class="form-group row my-2">
                 <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('zusätzliche Info') }}</label>
@@ -314,7 +340,7 @@
                 </div>
             </div>
         </form>
-                
+
                 </div>
                 </div>
             </div>

@@ -14,13 +14,13 @@
                         margin-bottom: 10px;
                         margin-top: 20px;
         ">
-        
+
     </div>
     <h1 class="text-uppercase">MoonRepair Portal</h1>
 
 </div>
 
-    
+
 <div class="container mt-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-light my-4">
             <a class="navbar-brand">
@@ -46,10 +46,10 @@
 
                   <div class="card">
                     <div class="card-header d-flex">
-                            
+
                               <input placeholder="Suchgeräte" id="keyword" type="text" class="form-control text-center" >
                               <button onclick="search()" class="btn btn-primary mx-2">Suche</button>
-                      
+
                     </div>
                   </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="card" style="">
                     <div class="card-header">Results for ({{$keyword}})</div>
                     <div class="container">
-                       
+
                     </div>
                 <?php
                             if(sizeof($results) == 0){
@@ -70,22 +70,17 @@
                                     @foreach ($results as $result)
                                     <div class="card m-2">
                                         <div class="card-header position-relative">
-                                            <h3>#{{$result->id}} <a class="text-decoration-none text-dark" href="../../../moonRepair/device/{{$result->id}}">{{$result->model}} </a></h3>
+                                            <h3>#{{$result->id}} <a class="text-decoration-none text-dark" href="../../../moonRepair/device/{{$result->id}}">{{$result->model}} </a> ({{$result->customerName}}) </h3>
                                             <a class="text-decoration-none">Sent: {{$result->created_at}}</a>
                                         </div>
-                                        <div class="card-body">
-                                                <p class="p-2">
-                                                    {{$result->description}}
-                                                </p>
-                                        </div>
                                     </div>
-                                       
+
                                     @endforeach
                                 <?php
                             }
                 ?>
                 </div>
-            
+
             </div>
         </div>
     </div>

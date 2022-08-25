@@ -92,6 +92,33 @@
                     @enderror
                 </div>
             </div>
+                    <div class="form-group row my-2">
+                        <label for="privatePhone" class="col-md-4 col-form-label text-md-right">{{ __('Privatenumme des Kunden') }}</label>
+
+                        <div class="col-md-6">
+                            <input placeholder="Privatenumme des Kunden" id="privatePhone" type="text" class="text-center form-control @error('model') is-invalid @enderror" name="privateNumber" readonly value="{{ $device->privateNumber}}" required autocomplete="model" >
+
+                            @error('privateNumber')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+            <div class="form-group row my-2">
+                <label for="company" class="col-md-4 col-form-label text-md-right">{{ __('Firm des Kunden') }}</label>
+
+                <div class="col-md-6">
+                    <input placeholder="Firm des Kunden" id="company" type="text" class="text-center form-control @error('model') is-invalid @enderror" name="company" readonly value="{{ $device->company}}" required autocomplete="model" >
+
+                    @error('company')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                </div>
+            </div>
+
             <div class="form-group row my-2">
                 <label for="zip" class="col-md-4 col-form-label text-md-right">{{ __('ZIP') }}</label>
 
@@ -221,10 +248,10 @@
                 <div class="col-md-6">
                     <div class="form-check">
                        <?php
-                            if($device['dataReovery'] == 1){
-                                echo "Ja!";
+                            if($device['dataRecovery'] == 1){
+                                echo "Ja";
                             }else{
-                                echo "Nein!";
+                                echo "Nein";
                             }
                        ?>
                     </div>
@@ -281,7 +308,7 @@
                       <a href="../../moonRepair/device/pdf/{{$device->id}}" class="btn btn-primary">PDF</a>                      </div>
                       <div class="card-body">
                           <?php
-                            if($AccountType == "tech"){
+                            if($AccountType == "tech" || $AccountType == "b2c"){
 
                                 ?>
                       <form method="POST" action="{{ url('moonRepair/storeComment') }}">

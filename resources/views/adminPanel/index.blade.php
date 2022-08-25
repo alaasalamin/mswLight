@@ -308,6 +308,10 @@
                                                     <h3 class="rate-percentage">{{$partners}}</h3>
                                                 </div>
                                                 <div>
+                                                    <p class="statistics-title">steht für heute an (b2c)</p>
+                                                    <h3 class="rate-percentage">{{$pendingB2cDevicesToday}}</h3>
+                                                </div>
+                                                <div>
                                                     <p class="statistics-title">Pending Devices (b2b)</p>
                                                     <h3 class="rate-percentage">{{$pendingB2bDevices}}</h3>
                                                 </div>

@@ -33,6 +33,9 @@ class CreateMoonRepairs extends Migration
             $table->string("city");
             $table->string("street");
             $table->string("price");
+            $table->string("company")->nullable();
+            $table->string("privateNumber")->nullable();
+
             $table->timestamps();
         });
     }
